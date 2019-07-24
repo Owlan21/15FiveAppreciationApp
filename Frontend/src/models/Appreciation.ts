@@ -1,8 +1,7 @@
-import IAppreciation from './interfaces/IAppreciation';
+import HighFives from '../models/HighFives'
 
-
-export default class Appreciation implements IAppreciation {
-    public Message: string = "";
-    public Username: string = "";
-    public Index: number = 0;
+export default class Appreciation {
+    public mostGiven: any
+    public mostRecieved: any
+    public highFives: HighFives[] = [];
 }

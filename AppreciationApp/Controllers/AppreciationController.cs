@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using AppreciationApp.Web.Models;
 using AppreciationApp.Web.Repository;
-using AppreciationApp.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AppreciationApp.Web.Controllers
@@ -24,17 +23,17 @@ namespace AppreciationApp.Web.Controllers
           
             var highfives = repo.GetWeeklyHighFives();
             var AppreciationViewModel = new List<AppreciationViewModel>();
-            int indexCount = 0;
-            foreach (var item in highfives)
-            {
-                indexCount += 1;
-                AppreciationViewModel.Add(new AppreciationViewModel()
-                {
-                    Index = indexCount,
-                    Message = item.Message,
-                    Username = item.AppreciatedUser
-                });
-            }
+            //int indexCount = 0;
+            //foreach (var item in highfives)
+            //{
+            //    indexCount += 1;
+            //    AppreciationViewModel.Add(new AppreciationViewModel()
+            //    {
+            //        Index = indexCount,
+            //        Message = item.Message,
+            //        Username = item.AppreciatedUser
+            //    });
+            //}
        
 
             return View(AppreciationViewModel);

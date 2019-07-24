@@ -13,7 +13,7 @@ namespace AppreciationApp.Web.Services
         private IAppreciationAPIClient appreciationAPIClient;
 
         private List<string> highFiveRecieversList = new List<string>();
-
+        
         private List<string> highFiveGiversList = new List<string>();
 
         public AppreciationService(IAppreciationAPIClient appreciationAPIClient)
@@ -21,39 +21,44 @@ namespace AppreciationApp.Web.Services
             this.appreciationAPIClient = appreciationAPIClient;
         }
 
-        public List<HighFives> GetAppreciations()
+        public FifteenFive GetAppreciations()
         {
             var result = appreciationAPIClient.GetWeeklyHighFives();
 
-            var highFives = new List<HighFives>();
+            var fifteenFive = new FifteenFive();
 
             //Initialise list of recipients
-            List<string> recipientsList = new List<string>();
-
+            this.highFiveGiversList = new List<string>();
+            this.highFiveRecieversList = new List<string>();
 
             foreach (var highFive in result.results)
             {
                 string highFiveMessage = highFive.text.ToString();
                 string appreciator = highFive.creator_details.full_name.ToString();
-                dynamic textSplit = "";
-                MostHighFivesGiven(highFiveMessage, appreciator);
-                var copyOfHighFive = highFiveMessage;
+
+                PopulateHighFiveLists(highFiveMessage, appreciator);
 
                 while (UneditedRecipients(highFiveMessage))
                 {
                     highFiveMessage = SpaceApartNames(highFiveMessage);
                 }
 
-                highFives.Add(new HighFives()
+                fifteenFive.HighFives.Add(new HighFives()
                 {
                     Message = highFiveMessage,
                     AppreciatedUser = appreciator
                 });
             }
-            var mostRecieved = CalculateHighFiveNames(this.highFiveRecieversList);
-            var mostGiven = CalculateHighFiveNames(this.highFiveGiversList);
+            fifteenFive.MostRecieved = CalculateHighFiveNames(this.highFiveRecieversList);
+            fifteenFive.MostGiven = CalculateHighFiveNames(this.highFiveGiversList);
 
-            return highFives;
+            return fifteenFive;
+        }
+
+        private void PopulateHighFiveLists(string highFiveMessage, string appreciator)
+        {
+            this.highFiveRecieversList.AddRange(highFiveMessage.Split("".ToCharArray()).Where(s => s.StartsWith("@")));
+            this.highFiveGiversList.Add(appreciator);
         }
 
         private KeyValuePair<List<string>, int> CalculateHighFiveNames(List<string> highFiveNames)
@@ -62,22 +67,6 @@ namespace AppreciationApp.Web.Services
             var maxCount = nameGroup.Max(g => g.Count());
             var names = nameGroup.Where(x => x.Count() == maxCount).Select(x => x.Key).ToList();
             return new KeyValuePair<List<string>, int>(names, maxCount);
-        }
-
-        private void MostHighFivesGiven(string highFiveMessage, string appreciator)
-        {
-            this.highFiveRecieversList.AddRange(highFiveMessage.Split("".ToCharArray()).Where(s => s.StartsWith("@")));
-            this.highFiveGiversList.Add(appreciator);
-        }
-
-        public List<string> PopulateList(List<string> recipientsList, string recipient)
-        {
-            if (!string.IsNullOrEmpty(recipient))
-            {
-                recipientsList.Add(recipient);
-            }
-
-            return recipientsList;
         }
 
         public string SpaceApartNames(string message)

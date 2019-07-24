@@ -19,23 +19,24 @@ namespace AppreciationApp.Web.Controllers.API
         {
             this.appreciationService = appreciationService;
         }
-        public List<AppreciationViewModel> Get15FiveAppreciations([FromQuery]string postcode)
+        public AppreciationViewModel Get15FiveAppreciations([FromQuery]string postcode)
         {
-            var highfives = appreciationService.GetAppreciations();
-            var AppreciationViewModel = new List<AppreciationViewModel>();
+            var fifteenFive = appreciationService.GetAppreciations();
+            var appreciationViewModel = new AppreciationViewModel();
             int indexCount = 0;
-            foreach (var item in highfives)
+            foreach (var item in fifteenFive.HighFives)
             {
                 indexCount += 1;
-                AppreciationViewModel.Add(new AppreciationViewModel()
+                appreciationViewModel.HighFives.Add(new HighFivesViewModel()
                 {
                     Index = indexCount,
                     Message = item.Message,
                     Username = item.AppreciatedUser
                 });
             }
-
-            return AppreciationViewModel;
+            appreciationViewModel.MostGiven = fifteenFive.MostGiven;
+            appreciationViewModel.MostRecieved = fifteenFive.MostRecieved;
+            return appreciationViewModel;
         }
     }
 }

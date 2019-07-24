@@ -1,27 +1,40 @@
-﻿namespace AppreciationApp.Web.ViewModels
+﻿using AppreciationApp.Web.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace AppreciationApp.Web.Models
 {
     public class AppreciationViewModel
     {
+        public AppreciationViewModel()
+        {
+            this.HighFives = new List<HighFivesViewModel>();
+        }
+
         /// <summary>
-        /// Gets or sets the index.
+        /// Gets or sets the most given.
         /// </summary>
         /// <value>
-        /// The index.
+        /// The most given.
         /// </value>
-        public int Index { get; set; }
+        public KeyValuePair<List<string>, int> MostGiven { get; set; }
+
         /// <summary>
-        /// Gets or sets the appreciation message.
+        /// Gets or sets the most recieved.
         /// </summary>
         /// <value>
-        /// The message.
+        /// The most recieved.
         /// </value>
-        public string Message { get; set; }
+        public KeyValuePair<List<string>, int> MostRecieved { get; set; }
+
         /// <summary>
-        /// Gets or sets the username associated with the high five.
+        /// Gets or sets the high fives.
         /// </summary>
         /// <value>
-        /// The username.
+        /// The high fives.
         /// </value>
-        public string Username { get; set; }
+        public List<HighFivesViewModel> HighFives { get; set; }
     }
 }

@@ -8,8 +8,7 @@ namespace AppreciationApp.Web.Services.Interfaces
 {
     public interface IAppreciationService
     {
-        List<HighFives> GetAppreciations();
-        List<string> PopulateList(List<string> recipientsList, string recipient);
+        FifteenFive GetAppreciations();
         string SpaceApartNames(string message);
 
         DateTime StartOfWeek(DateTime dt, DayOfWeek startOfWeek);

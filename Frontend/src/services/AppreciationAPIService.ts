@@ -7,7 +7,7 @@ import Appreciation from '@/models/Appreciation';
 export default class AppreciationAPIService implements IAppreciationAPIService {
     private apiDomain: string = 'https://localhost:44343/api/appreciation';
 
-    public returnHighFives(): Promise<Appreciation[]> {
+    public returnHighFives(): Promise<Appreciation> {
         return fetch(
           `${this.apiDomain}`,
           {
