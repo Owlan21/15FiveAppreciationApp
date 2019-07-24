@@ -4,12 +4,17 @@ using System.Text.RegularExpressions;
 using AppreciationApp.Web.Services.Interfaces;
 using AppreciationApp.Web.Clients.Interfaces;
 using AppreciationApp.Web.Models;
+using System.Linq;
 
 namespace AppreciationApp.Web.Services
 {
     public class AppreciationService : IAppreciationService
     {
         private IAppreciationAPIClient appreciationAPIClient;
+
+        private List<string> highFiveRecieversList = new List<string>();
+
+        private List<string> highFiveGiversList = new List<string>();
 
         public AppreciationService(IAppreciationAPIClient appreciationAPIClient)
         {
@@ -28,10 +33,10 @@ namespace AppreciationApp.Web.Services
 
             foreach (var highFive in result.results)
             {
-                var highFiveMessage = highFive.text.ToString();
-                var appreciator = highFive.creator_details.full_name.ToString();
+                string highFiveMessage = highFive.text.ToString();
+                string appreciator = highFive.creator_details.full_name.ToString();
                 dynamic textSplit = "";
-
+                MostHighFivesGiven(highFiveMessage, appreciator);
                 var copyOfHighFive = highFiveMessage;
 
                 while (UneditedRecipients(highFiveMessage))
@@ -45,8 +50,26 @@ namespace AppreciationApp.Web.Services
                     AppreciatedUser = appreciator
                 });
             }
+            var mostRecieved = CalculateHighFiveNames(this.highFiveRecieversList);
+            var mostGiven = CalculateHighFiveNames(this.highFiveGiversList);
+
             return highFives;
         }
+
+        private KeyValuePair<List<string>, int> CalculateHighFiveNames(List<string> highFiveNames)
+        {
+            var nameGroup = highFiveNames.GroupBy(name => name);
+            var maxCount = nameGroup.Max(g => g.Count());
+            var names = nameGroup.Where(x => x.Count() == maxCount).Select(x => x.Key).ToList();
+            return new KeyValuePair<List<string>, int>(names, maxCount);
+        }
+
+        private void MostHighFivesGiven(string highFiveMessage, string appreciator)
+        {
+            this.highFiveRecieversList.AddRange(highFiveMessage.Split("".ToCharArray()).Where(s => s.StartsWith("@")));
+            this.highFiveGiversList.Add(appreciator);
+        }
+
         public List<string> PopulateList(List<string> recipientsList, string recipient)
         {
             if (!string.IsNullOrEmpty(recipient))
