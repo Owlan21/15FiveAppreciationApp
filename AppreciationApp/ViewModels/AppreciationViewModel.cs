@@ -19,7 +19,7 @@ namespace AppreciationApp.Web.Models
         /// <value>
         /// The most given.
         /// </value>
-        public KeyValuePair<List<string>, int> MostGiven { get; set; }
+        public KeyValuePair<string, int> MostGiven { get; set; }
 
         /// <summary>
         /// Gets or sets the most recieved.
@@ -27,7 +27,7 @@ namespace AppreciationApp.Web.Models
         /// <value>
         /// The most recieved.
         /// </value>
-        public KeyValuePair<List<string>, int> MostRecieved { get; set; }
+        public KeyValuePair<string, int> MostRecieved { get; set; }
 
         /// <summary>
         /// Gets or sets the high fives.

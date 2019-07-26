@@ -61,12 +61,14 @@ namespace AppreciationApp.Web.Services
             this.highFiveGiversList.Add(appreciator);
         }
 
-        private KeyValuePair<List<string>, int> CalculateHighFiveNames(List<string> highFiveNames)
+        private KeyValuePair<string, int> CalculateHighFiveNames(List<string> highFiveNames)
         {
             var nameGroup = highFiveNames.GroupBy(name => name);
             var maxCount = nameGroup.Max(g => g.Count());
             var names = nameGroup.Where(x => x.Count() == maxCount).Select(x => x.Key).ToList();
-            return new KeyValuePair<List<string>, int>(names, maxCount);
+            var splitNameList =  string.Join(" ", names);
+            var removeSymbol = splitNameList.Replace("@", string.Empty);
+            return new KeyValuePair<string, int>(removeSymbol, maxCount);
         }
 
         public string SpaceApartNames(string message)

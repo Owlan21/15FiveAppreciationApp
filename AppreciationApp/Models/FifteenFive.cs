@@ -12,9 +12,9 @@ namespace AppreciationApp.Web.Models
             this.HighFives = new List<HighFives>();
         }
 
-        public KeyValuePair<List<string>, int> MostGiven { get; set; }
+        public KeyValuePair<string, int> MostGiven { get; set; }
 
-        public KeyValuePair<List<string>, int> MostRecieved { get; set; }
+        public KeyValuePair<string, int> MostRecieved { get; set; }
 
         public List<HighFives> HighFives { get; set; }      
     }
