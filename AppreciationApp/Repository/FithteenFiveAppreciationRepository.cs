@@ -12,7 +12,7 @@ namespace AppreciationApp.Web.Repository
     {
         public dynamic GetWeeklyHighFives()
         {
-            var APIKey = "9255ef32f33648c3b5cf84e111fbe53a"; //API Key Goes Here. Don't add it to the repo
+            var APIKey = ""; //API Key Goes Here. Don't add it to the repo
             var url = @"https://theleadagency.15five.com/api/public/high-five/";
             var client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", APIKey);

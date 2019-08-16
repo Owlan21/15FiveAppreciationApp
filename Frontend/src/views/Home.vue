@@ -15,6 +15,7 @@
     </div>
 </header>
   <div class="container">
+    <div class="huell"></div>
     <img alt="Vue logo" src="../assets/logo.png">
     <h1>{{appreciation.highFives[0].message}}</h1><br/>
     <h1>From: {{appreciation.highFives[0].username}}</h1>

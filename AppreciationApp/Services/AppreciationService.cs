@@ -50,6 +50,8 @@ namespace AppreciationApp.Web.Services
                 });
             }
             fifteenFive.MostRecieved = CalculateHighFiveNames(this.highFiveRecieversList);
+            var mostRecieved = SpaceApartNames(fifteenFive.MostRecieved.Key);
+            fifteenFive.MostRecieved = new KeyValuePair<string, int>(mostRecieved, fifteenFive.MostRecieved.Value);
             fifteenFive.MostGiven = CalculateHighFiveNames(this.highFiveGiversList);
 
             return fifteenFive;

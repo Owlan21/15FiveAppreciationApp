@@ -1,11 +1,45 @@
+$color: -webkit-linear-gradient(top, #FF550B, rgba(238, 73, 2, 0.459));
+
 .button {
+    cursor: pointer;
     min-width: 100px;
     font-size: 1.6rem;
     border-radius: 40px;
     padding: 20px;
-    background-color: #FF550B;
     border: 0;
-    position: absolute;
-    bottom: 250px;
-    color: white;
+    position: relative;
+    bottom: 170px;
+    color: whitesmoke;
+    transition: all .15s linear 0s;
+    background-image: $color;
+    top: 0;
+    left: 0;
+    outline: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
 }
+
+.button:active {
+    top:6px;
+         text-shadow:0 -2px 0 darken(#FF550B,0%),0 1px 1px lighten(#FF550B,20%), 0 0 4px white ;
+    color:lighten(#FF550B,45%);
+    &:before {
+      top:0;
+  
+    }
+  }
+  .button:before {
+    display:inline-block;
+    content:'';
+    position:absolute;
+    left:0;
+    right:0;
+    z-index:-1;
+    top:(6)+px;
+    border-radius:40px;
+    height:(75)+px;
+    background: linear-gradient(to top,
+      saturate(darken(#FF550B,40%),15%) 0%,
+      saturate(darken(#FF550B,25%),10%) 6px);
+    transition:all ((.06 * 2) + s) ease-out;
+  }

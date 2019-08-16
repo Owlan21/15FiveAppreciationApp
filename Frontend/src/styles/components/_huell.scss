@@ -1,0 +1,18 @@
+.huell {
+
+    &:before {
+        background-image: url("../img/huell.jpg");
+        background-repeat: no-repeat;
+        content: "";
+        position: absolute;
+        display: block;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+        opacity: .2;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background-size: 100px;
+    }
+}
